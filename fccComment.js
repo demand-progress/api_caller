@@ -24,6 +24,7 @@ const getStateAndCity = zip => new Promise(async (resolve, reject) => {
       });
     })
     .catch((error) => {
+      console.log('error from line 27 fccComment.js ', error)
       reject(error);
     });
 });
@@ -74,6 +75,7 @@ const postFccComment = reqBody => new Promise(
         resolve(response.data.status);
       })
       .catch((error) => {
+        console.log('error from line 78 fccComment.js ', error)
         reject(error);
       });
   },
