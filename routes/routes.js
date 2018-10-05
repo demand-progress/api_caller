@@ -8,7 +8,7 @@ const appRouter = (app) => {
   app.post('/fcccomment', (req, res) => {
     postFccComment(req.body)
       .then(answer => res.send(answer))
-      .catch(error => console.log(error));
+      .catch(error => console.log('error from line 11 routes.js ', error));
   });
 };
 module.exports = appRouter;
