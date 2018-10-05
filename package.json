@@ -19,7 +19,6 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "mailgun-js": "^0.21.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
