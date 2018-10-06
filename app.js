@@ -12,9 +12,10 @@ let whitelist = ['https://nomobilemegamerger.com', 'http://localhost:8008'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+    callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'))
+    const error = 'Not allowed by CORS, from this origin: ' + origin
+    callback(new Error(error))
     }
   },
   credentials: true,
