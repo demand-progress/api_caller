@@ -24,7 +24,7 @@ const getStateAndCity = zip => new Promise(async (resolve, reject) => {
       });
     })
     .catch((error) => {
-      console.log('error from line 27 fccComment.js ', error)
+      console.log('error from line 27 fccComment.js ', error, 'zipcode: ', zip)
       reject(error);
     });
 });
