@@ -48,36 +48,40 @@ const postFccComment = (reqBody) => {
     getStateAndCity(zip).then((cityStateObj) => {
       const { state, city } = cityStateObj;
       const key = process.env.fccCommentKey ? process.env.fccCommentKey : keys.fccKey;
+      const data = {
+        proceedings: [
+          {
+            bureau_code: 'WTB',
+            bureau_name: 'Wireless Telecommunications Bureau',
+            name: '18-197',
+          },
+        ],
+        filers: [
+          {
+            name: `${first_name} ${last_name}`,
+          },
+        ],
+        contact_email: email,
+        addressentity: {
+          address_line_1: address1,
+          city,
+          state,
+          zip_code: zip,
+        },
+        text_data: fcc_comment,
+        express_comment: 1,
+      };
       axios({
         method: 'post',
         url: `https://publicapi.fcc.gov/ecfs/filings?api_key=${key}`,
-        data: {
-          proceedings: [
-            {
-              bureau_code: 'WTB',
-              bureau_name: 'Wireless Telecommunications Bureau',
-              name: '18-197',
-            },
-          ],
-          filers: [
-            {
-              name: `${first_name} ${last_name}`,
-            },
-          ],
-          contact_email: email,
-          addressentity: {
-            address_line_1: address1,
-            city,
-            state,
-            zip_code: zip,
-          },
-          text_data: fcc_comment,
-          express_comment: 1,
-        },
+        data,
       }).then((response) => {
         resolve(response.data.status);
       }).catch((error) => {
-        throw new Error(error);
+        console.log('input data: ', data);
+        console.log('output error ', error);
+        reject(error);
+        // throw new Error(error);
       });
     }).catch((error) => {
       reject(error);
