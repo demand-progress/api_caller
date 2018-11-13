@@ -72,7 +72,7 @@ const postFccComment = (reqBody) => {
         text_data: fcc_comment,
         express_comment: 1,
       };
-      console.log(data);
+      
       axios({
         method: 'post',
         url: `https://publicapi.fcc.gov/ecfs/filings?api_key=${key}`,
