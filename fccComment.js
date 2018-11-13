@@ -19,7 +19,7 @@ const getStateAndCity = zip => new Promise((resolve, reject) => {
       parseString(xml, (err, result) => {
         const errorMessage = result.CityStateLookupResponse.ZipCode[0].Error;
         if (errorMessage) {
-          throw new Error(`Error Message: ${errorMessage[0].Description[0]}, zipcode: ${zip}`);
+          reject(`Error Message: ${errorMessage[0].Description[0]}, zipcode: ${zip}`);
         } else {
           const { State, City } = result.CityStateLookupResponse.ZipCode[0];
           resolve({
@@ -47,6 +47,7 @@ const postFccComment = (reqBody) => {
   return new Promise((resolve, reject) => {
     getStateAndCity(zip).then((cityStateObj) => {
       const { state, city } = cityStateObj;
+     
       const key = process.env.fccCommentKey ? process.env.fccCommentKey : keys.fccKey;
       const data = {
         proceedings: [
@@ -71,6 +72,7 @@ const postFccComment = (reqBody) => {
         text_data: fcc_comment,
         express_comment: 1,
       };
+      console.log(data);
       axios({
         method: 'post',
         url: `https://publicapi.fcc.gov/ecfs/filings?api_key=${key}`,
